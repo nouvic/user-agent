@@ -331,13 +331,19 @@ class Agent extends MobileDetect
         return "other";
     }
 
-    public function version($propertyName, $type = self::VERSION_TYPE_STRING): ?string
+    /**
+     * Get the version of a property.
+     * @param string $propertyName
+     * @param string $type
+     * @return string|float|bool
+     */
+    public function version(string $propertyName, string $type = self::VERSION_TYPE_STRING): string|float|bool
     {
         if (empty($propertyName)) {
             return false;
         }
 
-        // set the $type to the default if we don't recognize the type
+        // Ensure the $type is valid (either string or float)
         if ($type !== self::VERSION_TYPE_STRING && $type !== self::VERSION_TYPE_FLOAT) {
             $type = self::VERSION_TYPE_STRING;
         }
@@ -345,9 +351,7 @@ class Agent extends MobileDetect
         $properties = self::getProperties();
 
         // Check if the property exists in the properties array.
-        if (true === isset($properties[$propertyName])) {
-
-            // Prepare the pattern to be matched.
+        if (isset($properties[$propertyName])) {
             // Make sure we always deal with an array (string is converted).
             $properties[$propertyName] = (array) $properties[$propertyName];
 
@@ -361,10 +365,8 @@ class Agent extends MobileDetect
                 // Identify and extract the version.
                 preg_match(sprintf('#%s#is', $propertyPattern), $this->userAgent, $match);
 
-                if (false === empty($match[1])) {
-                    $version = ($type === self::VERSION_TYPE_FLOAT ? $this->prepareVersionNo($match[1]) : $match[1]);
-
-                    return $version;
+                if (!empty($match[1])) {
+                    return ($type === self::VERSION_TYPE_FLOAT) ? $this->prepareVersionNo($match[1]) : $match[1];
                 }
             }
         }
