@@ -206,7 +206,7 @@ class Agent extends MobileDetect
     {
         // Loop given rules
         foreach ($rules as $key => $regex) {
-            if (empty($regex)) {
+            if (is_array($regex) || empty($regex)) {
                 continue;
             }
             $userAgent = $userAgent ?? $this->getUserAgent();
