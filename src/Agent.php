@@ -249,8 +249,7 @@ class Agent extends MobileDetect
         $rules = static::mergeRules(
             static::getDesktopDevices(),
             static::getPhoneDevices(),
-            static::getTabletDevices(),
-            static::getUtilities()
+            static::getTabletDevices()
         );
 
         return $this->findDetectionRulesAgainstUA($rules, $userAgent);
