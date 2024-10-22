@@ -199,10 +199,10 @@ class Agent extends MobileDetect
     /**
      * Match a detection rule and return the matched key.
      * @param  array $rules
-     * @param  string $userAgent
+     * @param  string|null $userAgent
      * @return string|bool
      */
-    protected function findDetectionRulesAgainstUA(array $rules, $userAgent = '')
+    protected function findDetectionRulesAgainstUA(array $rules, $userAgent = null)
     {
         // Loop given rules
         foreach ($rules as $key => $regex) {
@@ -246,6 +246,7 @@ class Agent extends MobileDetect
      */
     public function device($userAgent = null): ?string
     {
+        $userAgent = $userAgent ?? $this->getUserAgent();
         $rules = static::mergeRules(
             static::getDesktopDevices(),
             static::getPhoneDevices(),
