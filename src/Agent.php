@@ -209,7 +209,7 @@ class Agent extends MobileDetect
             if (empty($regex)) {
                 continue;
             }
-
+            $userAgent = $userAgent ?? $this->getUserAgent();
             // Check match
             if ($this->match($regex, $userAgent)) {
                 return $key ?: reset($this->matchesArray);
@@ -246,7 +246,6 @@ class Agent extends MobileDetect
      */
     public function device($userAgent = null): ?string
     {
-        $userAgent = $userAgent ?? $this->getUserAgent();
         $rules = static::mergeRules(
             static::getDesktopDevices(),
             static::getPhoneDevices(),
