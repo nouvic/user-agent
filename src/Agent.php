@@ -331,7 +331,7 @@ class Agent extends MobileDetect
         return "other";
     }
 
-    public function version($propertyName, $type = self::VERSION_TYPE_STRING)
+    public function version($propertyName, $type = self::VERSION_TYPE_STRING): ?string
     {
         if (empty($propertyName)) {
             return false;
