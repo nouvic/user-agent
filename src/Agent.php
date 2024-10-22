@@ -199,10 +199,10 @@ class Agent extends MobileDetect
     /**
      * Match a detection rule and return the matched key.
      * @param  array $rules
-     * @param  string|null $userAgent
+     * @param  string $userAgent
      * @return string|bool
      */
-    protected function findDetectionRulesAgainstUA(array $rules, $userAgent = null)
+    protected function findDetectionRulesAgainstUA(array $rules, $userAgent = '')
     {
         // Loop given rules
         foreach ($rules as $key => $regex) {
